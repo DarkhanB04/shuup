@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shuup-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: shuup
+  template:
+    metadata:
+      labels:
+        app: shuup
+    spec:
+      containers:
+      - name: shuup
+        image: yourdockerusername/shuup-app:v1
+        ports:
+        - containerPort: 8000

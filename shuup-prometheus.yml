@@ -1,0 +1,41 @@
+global:
+  scrape_interval: 15s # Collects metrics every 15 seconds
+
+rule_files:
+  - "recording_rules.yml"
+
+scrape_configs:
+  # Prometheus itself
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  # Django Application - Assuming you've set up django-prometheus
+  - job_name: "shuup-app"
+    static_configs:
+      - targets: ["localhost:8000"] # Replace with Shuup's actual endpoint
+
+  - job_name: "cadvisor"
+    static_configs:
+      - targets:
+          - "localhost:8080"
+
+  - job_name: "blackbox"
+    metrics_path: /probe
+    params:
+      module: [http_2xx] # Look for a HTTP 200 response.
+    static_configs:
+      - targets:
+          - http://localhost:9090 # Target to probe with http.
+          - http://localhost:8000 # Target to probe with http on port 8000.
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: localhost:9115
+
+  - job_name: "node_exporter"
+    static_configs:
+      - targets: ["localhost:9100"]

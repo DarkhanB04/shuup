@@ -1,0 +1,6 @@
+groups:
+  - name: example-recording-rules
+    interval: 30s
+    rules:
+      - record: node_cpu:rate5m
+        expr: rate(node_cpu_seconds_total[5m])

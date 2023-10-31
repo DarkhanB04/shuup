@@ -1,0 +1,17 @@
+{
+	"ulid": "01HBAT3Z3PQXTF8BACFXWPK6A8",
+	"minTime": 1695722404447,
+	"maxTime": 1695729600000,
+	"stats": {
+		"numSamples": 476321,
+		"numSeries": 1426,
+		"numChunks": 5088
+	},
+	"compaction": {
+		"level": 1,
+		"sources": [
+			"01HBAT3Z3PQXTF8BACFXWPK6A8"
+		]
+	},
+	"version": 1
+}
